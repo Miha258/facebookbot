@@ -1,3 +1,7 @@
+import os
+import pickle
+
+#Список міст,пропозицій
 CITIES = [
     'Варшава',
     'Ґданськ',
@@ -114,3 +118,28 @@ CITIES = [
     "Цеханув",	
     "Колобжег" 
 ]
+
+# Дістаємо повідомлення із списку міст,по дефолту діапазон від 0 до 10
+def get_cities_list(limit = 10) -> list:
+    return CITIES[0:limit]
+
+file = 'cities.pickle'
+def set_selected_city(data: dict):
+    with open(file, 'wb') as f:
+        pickle.dump(data, f)
+
+def get_selected_city(id: str):
+    if os.path.getsize(file) > 0:
+        with open(file, 'rb') as f:
+            data = pickle.load(f)
+        
+        with open(file, 'wb') as f:
+            pickle.dump({},f)
+        
+        # Якщо користувача з вибраним містом немає у файлі, то повртаємо None
+        if id in data:
+            return data[id]
+        return None
+   
+
+
