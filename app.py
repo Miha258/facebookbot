@@ -1,4 +1,3 @@
-
 from flask import Flask, request
 from cities import *
 from offers import OFFERS
